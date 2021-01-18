@@ -14,4 +14,8 @@ public interface CustomerDao {
     Customer readByEmail(String email);
 
     boolean CustomerExists(String email);
+
+    boolean customerExistsById(int id);
+
+    void deleteCustomerById(int id);
 }

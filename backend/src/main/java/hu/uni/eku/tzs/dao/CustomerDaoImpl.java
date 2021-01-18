@@ -18,6 +18,16 @@ public class CustomerDaoImpl implements CustomerDao{
     private final CustomerRepository customerRepository;
 
     @Override
+    public boolean customerExistsById(int id){
+        return customerRepository.existsById(id);
+    }
+
+    @Override
+    public void deleteCustomerById(int id){
+        customerRepository.deleteById(id);
+    }
+
+    @Override
     public void create(AddCustomer customer){
         customerRepository.save(CustomerEntityModelConverter.addModel2entity(customer));
     }
