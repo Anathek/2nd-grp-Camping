@@ -6,4 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface CustomerRepository extends CrudRepository<CustomerEntity, Integer> {
     CustomerEntity findByEmail(String email);
     boolean existsByEmail(String email);
+    boolean existsById(int id);
 }

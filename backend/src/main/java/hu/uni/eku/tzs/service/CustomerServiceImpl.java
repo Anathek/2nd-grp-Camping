@@ -39,12 +39,12 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Override
     public void deleteCustomerById(int id) throws CustomerNotExistsException {
-        final boolean customerExists = dao.customerExists();
+        final boolean customerExists = dao.customerExistsById(id);
 
         if (!customerExists){
             throw new CustomerNotExistsException("Customer with this id does not exits!");
         }
-        dao.deleteCustomerById();
+        dao.deleteCustomerById(id);
 
     }
 
