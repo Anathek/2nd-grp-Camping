@@ -57,4 +57,11 @@ public class CustomerController {
                         .build()
         ).collect(Collectors.toList());
     }
+
+    @DeleteMapping("/delete/{id}")
+    @ApiOperation(value = "Customer Delete by ID")
+    public void deleteUser(@PathVariable int id){
+        service.deleteUserById();
+    }
+
 }
