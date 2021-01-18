@@ -4,6 +4,7 @@ import hu.uni.eku.tzs.dao.CustomerDao;
 import hu.uni.eku.tzs.model.AddCustomer;
 import hu.uni.eku.tzs.model.Customer;
 import hu.uni.eku.tzs.service.exceptions.CustomerAlreadyExistsException;
+import hu.uni.eku.tzs.service.exceptions.CustomerNotExistsException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -35,4 +36,16 @@ public class CustomerServiceImpl implements CustomerService{
     public Collection<Customer>readAll(){
         return dao.readAll();
     }
+
+    @Override
+    public void deleteCustomerById(int id) throws CustomerNotExistsException {
+        final boolean customerExists = dao.customerExists();
+
+        if (!customerExists){
+            throw new CustomerNotExistsException("Customer with this id does not exits!");
+        }
+        dao.deleteCustomerById();
+
+    }
+
 }

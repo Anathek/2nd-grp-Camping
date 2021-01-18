@@ -3,9 +3,9 @@ package hu.uni.eku.tzs.controller;
 import hu.uni.eku.tzs.controller.dto.CustomerDto;
 import hu.uni.eku.tzs.controller.dto.CustomerRecordRequestDto;
 import hu.uni.eku.tzs.model.AddCustomer;
-import hu.uni.eku.tzs.model.Customer;
 import hu.uni.eku.tzs.service.CustomerService;
 import hu.uni.eku.tzs.service.exceptions.CustomerAlreadyExistsException;
+import hu.uni.eku.tzs.service.exceptions.CustomerNotExistsException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -61,7 +61,16 @@ public class CustomerController {
     @DeleteMapping("/delete/{id}")
     @ApiOperation(value = "Customer Delete by ID")
     public void deleteUser(@PathVariable int id){
-        service.deleteUserById();
+
+        try {
+            service.deleteCustomerById(id);
+        }catch (CustomerNotExistsException exception){
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    exception.getMessage()
+            );
+
+        }
     }
 
 }
